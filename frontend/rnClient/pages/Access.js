@@ -2,16 +2,27 @@ import React from 'react';
 import {useState} from 'react';
 import {Backdrop} from 'react-native-backdrop';
 import {StyleSheet, Pressable, View, Text} from 'react-native';
+import {Login} from '../components/Login';
+import {Register} from '../components/Register';
 
 export const Access = () => {
-  const [visible, setVisible] = useState(false);
+  const [loginBackdrop, setLoginBackdrop] = useState(false);
+  const [registerBackdrop, setRegisterBackdrop] = useState(false);
 
-  const handleOpen = () => {
-    setVisible(true);
+  const loginHandleOpen = () => {
+    setLoginBackdrop(true);
   };
 
-  const handleClose = () => {
-    setVisible(false);
+  const loginHandleClose = () => {
+    setLoginBackdrop(false);
+  };
+
+  const registerHandleOpen = () => {
+    setRegisterBackdrop(true);
+  };
+
+  const registerHandleClose = () => {
+    setRegisterBackdrop(false);
   };
 
   return (
@@ -20,21 +31,21 @@ export const Access = () => {
         <Text>로그인이 필요한 서비스입니다.</Text>
         <View style={styles.div_button}>
           <Pressable
-            onPress={() => setVisible(true)}
+            onPress={() => setLoginBackdrop(true)}
             style={styles.button_login}>
             <Text style={styles.text_login}>로그인</Text>
           </Pressable>
           <Pressable
-            onPress={() => setVisible(true)}
+            onPress={() => setRegisterBackdrop(true)}
             style={styles.button_register}>
             <Text style={styles.text_register}>회원가입</Text>
           </Pressable>
         </View>
       </View>
       <Backdrop
-        visible={visible}
-        handleOpen={handleOpen}
-        handleClose={handleClose}
+        visible={loginBackdrop}
+        handleOpen={loginHandleOpen}
+        handleClose={loginHandleClose}
         onClose={() => {}}
         swipeConfig={{
           velocityThreshold: 0.3,
@@ -44,33 +55,24 @@ export const Access = () => {
           speed: 14,
           bounciness: 4,
         }}
-        overlayColor="#FFF">
-        <View>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-          <Text>Backdrop Content</Text>
-        </View>
+        overlayColor="#F2F2F2">
+        <Login />
+      </Backdrop>
+      <Backdrop
+        visible={registerBackdrop}
+        handleOpen={registerHandleOpen}
+        handleClose={registerHandleClose}
+        onClose={() => {}}
+        swipeConfig={{
+          velocityThreshold: 0.3,
+          directionalOffsetThreshold: 80,
+        }}
+        animationConfig={{
+          speed: 14,
+          bounciness: 4,
+        }}
+        overlayColor="#F2F2F2">
+        <Register />
       </Backdrop>
     </>
   );
@@ -79,6 +81,7 @@ export const Access = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'rgb(241, 245, 249)',
     justifyContent: 'center',
     alignItems: 'center',
   },

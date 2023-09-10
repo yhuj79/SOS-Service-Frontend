@@ -1,10 +1,22 @@
+import {BASE_URL} from '@env';
+import axios from 'axios';
 import React from 'react';
-import {StyleSheet, Alert, View, Pressable, Text} from 'react-native';
+import {StyleSheet, View, Pressable, Text} from 'react-native';
 
 export const SOS = () => {
+  async function handleUserList() {
+    try {
+      const data = await axios.get(`${BASE_URL}/api/v1/auth/me`, {
+        withCredentials: true,
+      });
+      console.log(JSON.stringify(data, null, 3));
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <View>
-      <Pressable onPress={() => Alert.alert('SOS')} style={styles.button}>
+      <Pressable onPress={() => handleUserList()} style={styles.button}>
         <Text style={styles.text}>SOS</Text>
       </Pressable>
     </View>
