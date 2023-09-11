@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {View, Text, TextInput, Pressable} from 'react-native';
 import tailwind from 'twrnc';
 
-export const Login = () => {
+export const Login = ({registerHandleOpen}) => {
   const [email, setEmail] = useState('');
   const [passwd, setPasswd] = useState('');
 
@@ -67,16 +67,14 @@ export const Login = () => {
           onPress={() => handleLogin()}
           style={tailwind`h-12 bg-lime-400 rounded-md flex flex-row justify-center items-center px-6`}>
           <View style={tailwind`flex-1 flex items-center`}>
-            <Text style={tailwind`text-white text-base font-medium`}>
-              로그인
-            </Text>
+            <Text style={tailwind`text-white text-base font-bold`}>로그인</Text>
           </View>
         </Pressable>
         <Pressable
-          onPress={() => console.log(email, passwd)}
+          onPress={() => registerHandleOpen()}
           style={tailwind`mt-2.5 h-12 bg-emerald-400 rounded-md flex flex-row justify-center items-center px-6`}>
           <View style={tailwind`flex-1 flex items-center`}>
-            <Text style={tailwind`text-white text-base font-medium`}>
+            <Text style={tailwind`text-white text-base font-bold`}>
               회원가입
             </Text>
           </View>

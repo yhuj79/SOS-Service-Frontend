@@ -77,7 +77,7 @@ export const Register = () => {
           onPress={() => handleRegister()}
           style={tailwind`h-12 bg-lime-400 rounded-md flex flex-row justify-center items-center px-6`}>
           <View style={tailwind`flex-1 flex items-center`}>
-            <Text style={tailwind`text-white text-base font-medium`}>
+            <Text style={tailwind`text-white text-base font-bold`}>
               회원가입
             </Text>
           </View>

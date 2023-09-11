@@ -56,7 +56,7 @@ export const Access = () => {
           bounciness: 4,
         }}
         overlayColor="#F2F2F2">
-        <Login />
+        <Login registerHandleOpen={registerHandleOpen} />
       </Backdrop>
       <Backdrop
         visible={registerBackdrop}
