@@ -6,8 +6,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Enroll} from '../components/Enroll';
 
 export const Find = () => {
-  const auth = 0;
-
+  const [auth, setAuth] = useState(true);
   const [enrollBackdrop, setenrollBackdrop] = useState(false);
 
   const enrollHandleOpen = () => {
@@ -18,7 +17,7 @@ export const Find = () => {
     setenrollBackdrop(false);
   };
 
-  if (!auth) {
+  if (auth) {
     return (
       <>
         <View style={styles.container}>
@@ -37,6 +36,12 @@ export const Find = () => {
               <FontAwesome5 color={'#FFF'} name={'search'} size={17} />
             </Text>
             <Text style={styles.text_refer}>위치 조회</Text>
+          </Pressable>
+          {/* 로그인 화면 임시 버튼 */}
+          <Pressable
+            onPress={() => setAuth(false)}
+            style={styles.button_enroll}>
+            <Text style={styles.text_enroll}>(로그인 화면 임시 버튼)</Text>
           </Pressable>
         </View>
         <Backdrop
@@ -58,7 +63,15 @@ export const Find = () => {
       </>
     );
   } else {
-    return <Access />;
+    return (
+      <>
+        <Access />
+        {/* 찾기 화면 임시 버튼 */}
+        <Pressable onPress={() => setAuth(true)} style={styles.button_refer}>
+          <Text style={styles.text_refer}>(찾기 화면 임시 버튼)</Text>
+        </Pressable>
+      </>
+    );
   }
 };
 
