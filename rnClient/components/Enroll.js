@@ -5,7 +5,8 @@ import React, {useState} from 'react';
 import {View, Text, TextInput, Pressable} from 'react-native';
 import tailwind from 'twrnc';
 
-export const Enroll = ({registerHandleOpen}) => {
+// 보호 대상자 추가 컴포넌트
+export const Enroll = () => {
   const [email, setEmail] = useState('');
   const [authKey, setAuthKey] = useState('');
 
@@ -15,6 +16,7 @@ export const Enroll = ({registerHandleOpen}) => {
         <Text style={tailwind`text-4xl font-bold mb-6 text-slate-900`}>
           보호 대상자 추가
         </Text>
+        {/* email, authKey 상태값 저장 */}
         <Text style={tailwind`text-4 mb-1 text-slate-900`}>이메일</Text>
         <TextInput
           style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-4`}
@@ -29,7 +31,6 @@ export const Enroll = ({registerHandleOpen}) => {
           placeholder="AUTH KEY"
           onChangeText={e => setAuthKey(e)}
         />
-
         <View style={tailwind`flex flex-row justify-between items-center my-5`}>
           <Pressable>
             <Text style={tailwind`text-blue-600 font-bold`}>
@@ -40,7 +41,6 @@ export const Enroll = ({registerHandleOpen}) => {
             </Text>
           </Pressable>
         </View>
-
         <Pressable
           onPress={() => console.log('enroll')}
           style={tailwind`h-12 bg-lime-400 rounded-md flex flex-row justify-center items-center px-6`}>

@@ -5,6 +5,7 @@ import {StyleSheet, Pressable, View, Text} from 'react-native';
 import {Login} from '../components/Login';
 import {Register} from '../components/Register';
 
+// 로그인이 되어 있지 않을 경우 보여지는 페이지
 export const Access = () => {
   const [loginBackdrop, setLoginBackdrop] = useState(false);
   const [registerBackdrop, setRegisterBackdrop] = useState(false);
@@ -29,6 +30,7 @@ export const Access = () => {
     <>
       <View style={styles.container}>
         <Text>로그인이 필요한 서비스입니다.</Text>
+        {/* 각각 로그인, 회원가입 백드롭으로 컴포넌트 연결 */}
         <View style={styles.div_button}>
           <Pressable
             onPress={() => setLoginBackdrop(true)}

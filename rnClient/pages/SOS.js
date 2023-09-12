@@ -3,7 +3,9 @@ import axios from 'axios';
 import React from 'react';
 import {StyleSheet, View, Pressable, Text} from 'react-native';
 
+// 응급 구조 요청 페이지
 export const SOS = () => {
+  // 회원 정보 조회 테스트중
   async function handleUserList() {
     try {
       const data = await axios.get(`${BASE_URL}/api/v1/auth/me`, {

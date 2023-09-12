@@ -5,6 +5,8 @@ import {SOS} from './pages/SOS';
 import {Find} from './pages/Find';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+// 탭 네비게이터
+
 const Tab = createBottomTabNavigator();
 
 const ScreenComponent = () => {

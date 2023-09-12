@@ -5,6 +5,7 @@ import {Backdrop} from 'react-native-backdrop';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Enroll} from '../components/Enroll';
 
+// 찾기 페이지
 export const Find = () => {
   const [auth, setAuth] = useState(true);
   const [enrollBackdrop, setenrollBackdrop] = useState(false);
@@ -17,6 +18,8 @@ export const Find = () => {
     setenrollBackdrop(false);
   };
 
+  // 로그인 인증이 완료되었을 경우 본래 Find 페이지, 아닌 경우 Access 페이지 출력
+  // 현재 인증 로직이 없어 auth를 임시적으로 지정해 놓았음
   if (auth) {
     return (
       <>
@@ -44,6 +47,7 @@ export const Find = () => {
             <Text style={styles.text_enroll}>(로그인 화면 임시 버튼)</Text>
           </Pressable>
         </View>
+        {/* 백드롭으로 Enroll 컴포넌트 열기/닫기 */}
         <Backdrop
           visible={enrollBackdrop}
           handleOpen={enrollHandleOpen}

@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, {useEffect, useState} from 'react';
 import {Platform, PermissionsAndroid} from 'react-native';
 import type {Node} from 'react';
@@ -13,8 +5,10 @@ import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import MapView, {Marker} from 'react-native-maps';
 
+// 내위치 페이지
 export const MyLocation: () => Node = () => {
   useEffect(() => {
+    // iOS, Android에 대한 권한 요청 처리
     if (Platform.OS === 'ios') {
       Geolocation.requestAuthorization('always');
     } else if (Platform.OS === 'android') {
@@ -31,15 +25,16 @@ export const MyLocation: () => Node = () => {
     const watchId = Geolocation.watchPosition(
       position => {
         const {latitude, longitude} = position.coords;
+        // currentLocation에 위도, 경도 저장
         setCurrentLocation({latitude, longitude});
       },
       error => {
         console.log(error);
       },
       {
-        enableHighAccuracy: true,
+        enableHighAccuracy: true, // 배터리를 더 소모하여 보다 정확한 위치 추적
         timeout: 20000,
-        maximumAge: 0,
+        maximumAge: 0, // 한 번 찾은 위치 정보를 해당 초만큼 캐싱
         distanceFilter: 1,
       },
     );
@@ -52,6 +47,7 @@ export const MyLocation: () => Node = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* 위도, 경도 수치 임시 표기 */}
       {currentLocation ? (
         <View style={styles.div_location}>
           <Text style={styles.text}>rnClient</Text>
@@ -63,6 +59,7 @@ export const MyLocation: () => Node = () => {
           <Text style={styles.text}>Location Error</Text>
         </View>
       )}
+      {/* currentLocation에 값이 존재하면 react-native-maps에 위도, 경도를 전달 */}
       {currentLocation ? (
         <MapView
           style={styles.map}

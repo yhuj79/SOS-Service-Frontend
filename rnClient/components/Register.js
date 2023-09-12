@@ -1,21 +1,30 @@
 import {BASE_URL} from '@env';
 import axios from 'axios';
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, TextInput, Pressable} from 'react-native';
 import tailwind from 'twrnc';
 
+// 회원가입 컴포넌트
 export const Register = () => {
+  const [email, setEmail] = useState('');
+  const [passwd, setPasswd] = useState('');
+  const [name, setName] = useState('');
+  const [birth, setBirth] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [profileImage, setProfileImage] = useState('');
+
+  // 회원가입 처리 함수
   async function handleRegister() {
     try {
       const {data} = await axios.post(
         `${BASE_URL}/api/v1/auth/signup`,
         {
-          email: 'abc123@gmail.com',
-          password: '22224444',
-          name: '가나다',
-          birth: '1996-06-26',
-          phoneNumber: '010-1111-2222',
-          profileImage: 'www.test.com/profile.jpg',
+          email: String(email),
+          password: String(passwd),
+          name: String(name),
+          birth: String(birth),
+          phoneNumber: String(phoneNumber),
+          profileImage: String(profileImage),
         },
         {
           withCredentials: true,
@@ -33,36 +42,44 @@ export const Register = () => {
         <Text style={tailwind`text-4xl font-bold mb-6 text-slate-900`}>
           회원가입
         </Text>
+        {/* 회원가입 항목들 상태값 저장 */}
         <TextInput
           style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-3`}
           placeholderTextColor="#BDBDBD"
           placeholder="E-MAIL"
+          onChangeText={e => setEmail(e)}
         />
         <TextInput
           style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-3`}
           placeholderTextColor="#BDBDBD"
           placeholder="PASSWORD"
+          onChangeText={e => setPasswd(e)}
         />
         <TextInput
           style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-3`}
           placeholderTextColor="#BDBDBD"
           placeholder="NAME"
+          onChangeText={e => setName(e)}
         />
         <TextInput
           style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-3`}
           placeholderTextColor="#BDBDBD"
           placeholder="BIRTH"
+          onChangeText={e => setBirth(e)}
         />
         <TextInput
           style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-3`}
           placeholderTextColor="#BDBDBD"
           placeholder="PHONE"
+          onChangeText={e => setPhoneNumber(e)}
         />
         <TextInput
           style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4`}
           placeholderTextColor="#BDBDBD"
           placeholder="IMAGE"
+          onChangeText={e => setProfileImage(e)}
         />
+        {/* 약관 동의는 UI만 구현되어 있음 */}
         <View style={tailwind`flex flex-row justify-between items-center my-8`}>
           <View style={tailwind`flex-row items-center`}>
             <Pressable
@@ -72,7 +89,6 @@ export const Register = () => {
             <Text style={tailwind`text-slate-900`}>약관에 동의합니다.</Text>
           </View>
         </View>
-
         <Pressable
           onPress={() => handleRegister()}
           style={tailwind`h-12 bg-lime-400 rounded-md flex flex-row justify-center items-center px-6`}>
