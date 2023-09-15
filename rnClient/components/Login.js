@@ -3,9 +3,11 @@ import axios from 'axios';
 import React, {useState} from 'react';
 import {View, Text, TextInput, Pressable} from 'react-native';
 import tailwind from 'twrnc';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNRestart from 'react-native-restart';
 
 // 로그인 컴포넌트
-export const Login = ({registerHandleOpen}) => {
+export const Login = ({registerHandleOpen, loginHandleClose}) => {
   const [email, setEmail] = useState('');
   const [passwd, setPasswd] = useState('');
 
@@ -22,11 +24,26 @@ export const Login = ({registerHandleOpen}) => {
           withCredentials: true,
         },
       );
-      // console에 json 형식으로 줄 정리된 data와 data.config.data(아이디와 비밀번호 부분)을 출력
-      console.log(JSON.stringify(data, null, 3));
-      console.log('data.config.data : ', data.config.data);
+      const parseValue = JSON.parse(data.config.data);
+      AsyncStorage.setItem('email', parseValue.email);
+      console.log('AsyncStorage Success');
+      RNRestart.restart();
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  async function getAuth() {
+    try {
+      const value = await AsyncStorage.getItem('email');
+      if (value !== null) {
+        console.log(value);
+      } else {
+        console.log('AsyncStorage Undefined');
+        console.log(value);
+      }
+    } catch (err) {
+      console.log(err.message);
     }
   }
 
@@ -49,15 +66,8 @@ export const Login = ({registerHandleOpen}) => {
           placeholder="PASSWORD"
           onChangeText={e => setPasswd(e)}
         />
-        {/* 아이디 저장, 찾기는 UI만 구현되어 있음 */}
+        {/* 아이디 찾기는 UI만 구현되어 있음 */}
         <View style={tailwind`flex flex-row justify-between items-center my-8`}>
-          <View style={tailwind`flex-row items-center`}>
-            <Pressable
-              style={tailwind`bg-white border border-slate-200 h-6 w-6 rounded-sm mr-2 flex items-center justify-center`}>
-              <View style={tailwind`bg-green-400 w-4 h-4 rounded-sm`} />
-            </Pressable>
-            <Text style={tailwind`text-slate-900`}>아이디 저장</Text>
-          </View>
           <Pressable>
             <Text style={tailwind`text-blue-400 font-bold`}>
               아이디/비밀번호 찾기
@@ -78,6 +88,15 @@ export const Login = ({registerHandleOpen}) => {
           <View style={tailwind`flex-1 flex items-center`}>
             <Text style={tailwind`text-white text-base font-bold`}>
               회원가입
+            </Text>
+          </View>
+        </Pressable>
+        <Pressable
+          onPress={() => getAuth()}
+          style={tailwind`mt-2.5 h-12 bg-lime-800 rounded-md flex flex-row justify-center items-center px-6`}>
+          <View style={tailwind`flex-1 flex items-center`}>
+            <Text style={tailwind`text-white text-base font-bold`}>
+              AsyncStorage.getItem
             </Text>
           </View>
         </Pressable>
