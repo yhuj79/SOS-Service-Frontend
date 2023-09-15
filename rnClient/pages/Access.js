@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
 import {Backdrop} from 'react-native-backdrop';
-import {StyleSheet, Pressable, View, Text} from 'react-native';
+import {StyleSheet, Pressable, View, Text, Image} from 'react-native';
 import {Login} from '../components/Login';
 import {Register} from '../components/Register';
 
@@ -29,7 +29,8 @@ export const Access = () => {
   return (
     <>
       <View style={styles.container}>
-        <Text>로그인이 필요한 서비스입니다.</Text>
+        <Image style={styles.logo} source={require('../assets/logo.png')} />
+        <Text style={styles.div_text}>로그인이 필요한 서비스입니다.</Text>
         {/* 각각 로그인, 회원가입 백드롭으로 컴포넌트 연결 */}
         <View style={styles.div_button}>
           <Pressable
@@ -89,6 +90,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(241, 245, 249)',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  logo: {
+    width: 300,
+    height: 200,
+    marginBottom: 70,
+  },
+  div_text: {
+    color: '#000',
+    fontSize: 20,
+    marginBottom: 50,
   },
   div_button: {
     flexDirection: 'row',

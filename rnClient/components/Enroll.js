@@ -19,18 +19,18 @@ export const Enroll = () => {
         {/* email, authKey 상태값 저장 */}
         <Text style={tailwind`text-4 mb-1 text-slate-900`}>이메일</Text>
         <TextInput
-          style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-4`}
+          style={tailwind`w-full bg-white text-black border border-slate-200 rounded-md h-12 px-4 mb-4`}
           placeholderTextColor="#BDBDBD"
           placeholder="E-MAIL"
           onChangeText={e => setEmail(e)}
         />
-        <Text style={tailwind`text-4 mb-1 text-slate-900`}>인증번호</Text>
+        {/* <Text style={tailwind`text-4 mb-1 text-slate-900`}>인증번호</Text>
         <TextInput
-          style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4`}
+          style={tailwind`w-full bg-white text-black border border-slate-200 rounded-md h-12 px-4`}
           placeholderTextColor="#BDBDBD"
           placeholder="AUTH KEY"
           onChangeText={e => setAuthKey(e)}
-        />
+        /> */}
         <View style={tailwind`flex flex-row justify-between items-center my-5`}>
           <Pressable>
             <Text style={tailwind`text-blue-600 font-bold`}>

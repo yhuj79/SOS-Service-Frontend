@@ -41,7 +41,7 @@ const TabNavigation = () => {
             <Pressable onPress={() => myPageHandleOpen()}>
               <View style={styles.header_button}>
                 <Text style={styles.header_text}>
-                  <MaterialIcons color={'#000'} name={'person-pin'} size={22} />
+                  <MaterialIcons color={'#000'} name={'person-pin'} size={20} />
                 </Text>
                 <Text style={styles.header_text}>MY</Text>
               </View>
@@ -118,9 +118,10 @@ const styles = StyleSheet.create({
     borderColor: '#E9E9E9',
     borderRadius: 30,
     padding: 5,
+    marginRight: 12,
   },
   header_text: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#000',
   },
 });

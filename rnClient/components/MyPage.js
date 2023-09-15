@@ -35,7 +35,7 @@ export const MyPage = ({myPageHandleClose}) => {
   }
   return (
     <View style={tailwind`h-full items-center justify-center bg-slate-100`}>
-      <View style={tailwind`p-2 w-full max-w-sm`}>
+      <View style={tailwind`p-4 w-full max-w-sm`}>
         <Text style={tailwind`text-4xl font-bold mb-6 text-slate-900`}>
           마이페이지
         </Text>

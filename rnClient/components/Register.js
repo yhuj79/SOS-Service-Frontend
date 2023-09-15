@@ -44,37 +44,38 @@ export const Register = () => {
         </Text>
         {/* 회원가입 항목들 상태값 저장 */}
         <TextInput
-          style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-3`}
+          style={tailwind`w-full bg-white text-black border border-slate-200 rounded-md h-12 px-4 mb-3`}
           placeholderTextColor="#BDBDBD"
           placeholder="E-MAIL"
           onChangeText={e => setEmail(e)}
         />
         <TextInput
-          style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-3`}
+          style={tailwind`w-full bg-white text-black border border-slate-200 rounded-md h-12 px-4 mb-3`}
           placeholderTextColor="#BDBDBD"
           placeholder="PASSWORD"
+          secureTextEntry={true}
           onChangeText={e => setPasswd(e)}
         />
         <TextInput
-          style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-3`}
+          style={tailwind`w-full bg-white text-black border border-slate-200 rounded-md h-12 px-4 mb-3`}
           placeholderTextColor="#BDBDBD"
           placeholder="NAME"
           onChangeText={e => setName(e)}
         />
         <TextInput
-          style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-3`}
+          style={tailwind`w-full bg-white text-black border border-slate-200 rounded-md h-12 px-4 mb-3`}
           placeholderTextColor="#BDBDBD"
           placeholder="BIRTH"
           onChangeText={e => setBirth(e)}
         />
         <TextInput
-          style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4 mb-3`}
+          style={tailwind`w-full bg-white text-black border border-slate-200 rounded-md h-12 px-4 mb-3`}
           placeholderTextColor="#BDBDBD"
           placeholder="PHONE"
           onChangeText={e => setPhoneNumber(e)}
         />
         <TextInput
-          style={tailwind`w-full bg-white border border-slate-200 rounded-md h-12 px-4`}
+          style={tailwind`w-full bg-white text-black border border-slate-200 rounded-md h-12 px-4`}
           placeholderTextColor="#BDBDBD"
           placeholder="IMAGE"
           onChangeText={e => setProfileImage(e)}
