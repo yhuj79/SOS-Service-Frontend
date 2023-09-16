@@ -78,7 +78,7 @@ export const Access = () => {
           bounciness: 4,
         }}
         overlayColor="#F2F2F2">
-        <Register />
+        <Register registerHandleClose={registerHandleClose} />
       </Backdrop>
     </>
   );

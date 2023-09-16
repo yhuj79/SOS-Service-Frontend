@@ -1,7 +1,7 @@
 import {BASE_URL} from '@env';
 import axios from 'axios';
 import React, {useState} from 'react';
-import {View, Text, TextInput, Pressable} from 'react-native';
+import {View, Text, TextInput, Pressable, Alert} from 'react-native';
 import tailwind from 'twrnc';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNRestart from 'react-native-restart';
@@ -28,8 +28,8 @@ export const Login = ({registerHandleOpen, loginHandleClose}) => {
       AsyncStorage.setItem('email', parseValue.email);
       console.log('AsyncStorage Success');
       RNRestart.restart();
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      Alert.alert('이메일 또는 비밀번호를 잘못 입력하셨습니다.');
     }
   }
 
@@ -71,7 +71,7 @@ export const Login = ({registerHandleOpen, loginHandleClose}) => {
         {/* Props로 받은 함수 통해 Register 컴포넌트로 이동 */}
         <Pressable
           onPress={() => registerHandleOpen()}
-          style={tailwind`mt-2.5 h-12 bg-emerald-400 rounded-md flex flex-row justify-center items-center px-6`}>
+          style={tailwind`mt-3 h-12 bg-emerald-400 rounded-md flex flex-row justify-center items-center px-6`}>
           <View style={tailwind`flex-1 flex items-center`}>
             <Text style={tailwind`text-white text-base font-bold`}>
               회원가입

@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNRestart from 'react-native-restart';
-import {View, Text, Pressable} from 'react-native';
+import {View, Text, Pressable, Alert} from 'react-native';
 import tailwind from 'twrnc';
 
 // 내정보 컴포넌트
@@ -23,6 +23,21 @@ export const MyPage = ({myPageHandleClose}) => {
     }
     getMyInfo();
   }, []);
+
+  function handleLogout() {
+    Alert.alert(
+      '로그아웃 하시겠습니까?',
+      '',
+      [
+        {
+          text: '취소',
+          onPress: () => {},
+        },
+        {text: '확인', onPress: () => removeAuth()},
+      ],
+      {cancelable: false},
+    );
+  }
 
   async function removeAuth() {
     try {
@@ -60,16 +75,16 @@ export const MyPage = ({myPageHandleClose}) => {
         )}
         <Pressable
           onPress={() => myPageHandleClose()}
-          style={tailwind`mt-2.5 h-12 bg-slate-500 rounded-md flex flex-row justify-center items-center px-6`}>
+          style={tailwind`mt-2.5 h-12 bg-transparent border-2 border-gray-500 rounded-md flex flex-row justify-center items-center px-6`}>
           <View style={tailwind`flex-1 flex items-center`}>
-            <Text style={tailwind`text-white text-base font-bold`}>
+            <Text style={tailwind`text-gray-500 text-base font-bold`}>
               뒤로가기
             </Text>
           </View>
         </Pressable>
         <Pressable
-          onPress={() => removeAuth()}
-          style={tailwind`mt-2.5 h-12 bg-slate-950 rounded-md flex flex-row justify-center items-center px-6`}>
+          onPress={() => handleLogout()}
+          style={tailwind`mt-3 h-12 bg-slate-950 rounded-md flex flex-row justify-center items-center px-6`}>
           <View style={tailwind`flex-1 flex items-center`}>
             <Text style={tailwind`text-white text-base font-bold`}>
               로그아웃

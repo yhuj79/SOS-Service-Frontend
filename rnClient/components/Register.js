@@ -1,11 +1,11 @@
 import {BASE_URL} from '@env';
 import axios from 'axios';
 import React, {useState} from 'react';
-import {View, Text, TextInput, Pressable} from 'react-native';
+import {View, Text, TextInput, Pressable, Alert} from 'react-native';
 import tailwind from 'twrnc';
 
 // 회원가입 컴포넌트
-export const Register = () => {
+export const Register = ({registerHandleClose}) => {
   const [email, setEmail] = useState('');
   const [passwd, setPasswd] = useState('');
   const [name, setName] = useState('');
@@ -31,8 +31,9 @@ export const Register = () => {
         },
       );
       console.log(data);
-    } catch (err) {
-      console.log(err);
+      registerHandleClose();
+    } catch (error) {
+      Alert.alert('회원 정보를 잘못 입력하셨습니다.');
     }
   }
 
@@ -96,6 +97,15 @@ export const Register = () => {
           <View style={tailwind`flex-1 flex items-center`}>
             <Text style={tailwind`text-white text-base font-bold`}>
               회원가입
+            </Text>
+          </View>
+        </Pressable>
+        <Pressable
+          onPress={() => registerHandleClose()}
+          style={tailwind`mt-3 h-12 bg-transparent border-2 border-gray-500 rounded-md flex flex-row justify-center items-center px-6`}>
+          <View style={tailwind`flex-1 flex items-center`}>
+            <Text style={tailwind`text-gray-500 text-base font-bold`}>
+              뒤로가기
             </Text>
           </View>
         </Pressable>
