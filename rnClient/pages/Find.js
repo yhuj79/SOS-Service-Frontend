@@ -28,7 +28,7 @@ export const Find = () => {
           <Text style={styles.text_enroll}>
             <FontAwesome5 color={'#FFF'} name={'plus'} size={17} />
           </Text>
-          <Text style={styles.text_enroll}>보호 대상자 추가</Text>
+          <Text style={styles.text_enroll}>보호 대상자 등록</Text>
         </Pressable>
         <Pressable
           onPress={() => console.log('refer button')}
@@ -54,7 +54,7 @@ export const Find = () => {
           bounciness: 4,
         }}
         overlayColor="#F2F2F2">
-        <Enroll />
+        <Enroll enrollHandleClose={enrollHandleClose} />
       </Backdrop>
     </>
   );

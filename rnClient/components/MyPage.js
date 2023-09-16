@@ -9,6 +9,7 @@ import tailwind from 'twrnc';
 // 내정보 컴포넌트
 export const MyPage = ({myPageHandleClose}) => {
   const [info, setInfo] = useState({});
+  const [child, setChild] = useState({});
 
   useEffect(() => {
     async function getMyInfo() {
@@ -16,12 +17,26 @@ export const MyPage = ({myPageHandleClose}) => {
         const data = await axios.get(`${BASE_URL}/api/v1/auth/me`, {
           withCredentials: true,
         });
-        setInfo(data.data.response, null, 3);
+        setInfo(data.data.response);
       } catch (err) {
         console.log(err);
       }
     }
     getMyInfo();
+  }, []);
+
+  useEffect(() => {
+    async function getMyChild() {
+      try {
+        const data = await axios.get(`${BASE_URL}/api/v1/child`, {
+          withCredentials: true,
+        });
+        setChild(data, null, 3);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getMyChild();
   }, []);
 
   function handleLogout() {
@@ -88,6 +103,15 @@ export const MyPage = ({myPageHandleClose}) => {
           <View style={tailwind`flex-1 flex items-center`}>
             <Text style={tailwind`text-white text-base font-bold`}>
               로그아웃
+            </Text>
+          </View>
+        </Pressable>
+        <Pressable
+          onPress={() => console.log(child)}
+          style={tailwind`mt-3 h-12 bg-slate-950 rounded-md flex flex-row justify-center items-center px-6`}>
+          <View style={tailwind`flex-1 flex items-center`}>
+            <Text style={tailwind`text-white text-base font-bold`}>
+              console.log(child)
             </Text>
           </View>
         </Pressable>
