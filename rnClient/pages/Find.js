@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   button_enroll: {
     flexDirection: 'row',
-    width: 300,
+    width: 275,
     height: 50,
     backgroundColor: '#87D325',
     justifyContent: 'center',
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   button_refer: {
     flexDirection: 'row',
-    width: 300,
+    width: 275,
     height: 50,
     backgroundColor: '#25D3B4',
     justifyContent: 'center',

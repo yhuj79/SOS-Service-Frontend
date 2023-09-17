@@ -3,8 +3,12 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNRestart from 'react-native-restart';
-import {View, Text, Pressable, Alert} from 'react-native';
+import {View, Text, Image, Pressable, Alert} from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import tailwind from 'twrnc';
+
+// eslint-disable-next-line react-native/no-inline-styles
+const B = props => <Text style={{fontWeight: 'bold'}}>{props.children}</Text>;
 
 // 내정보 컴포넌트
 export const MyPage = ({myPageHandleClose}) => {
@@ -14,28 +18,37 @@ export const MyPage = ({myPageHandleClose}) => {
   useEffect(() => {
     async function getMyInfo() {
       try {
-        const data = await axios.get(`${BASE_URL}/api/v1/auth/me`, {
-          withCredentials: true,
-        });
+        const email = await AsyncStorage.getItem('email');
+        const data = await axios.post(
+          `${BASE_URL}/api/v1/auth/me`,
+          {email: email},
+          {
+            withCredentials: true,
+          },
+        );
         setInfo(data.data.response);
       } catch (err) {
         console.log(err);
       }
     }
-    getMyInfo();
-  }, []);
 
-  useEffect(() => {
     async function getMyChild() {
       try {
-        const data = await axios.get(`${BASE_URL}/api/v1/child`, {
-          withCredentials: true,
-        });
-        setChild(data, null, 3);
+        const email = await AsyncStorage.getItem('email');
+        const data = await axios.post(
+          `${BASE_URL}/api/v1/child`,
+          {email: email},
+          {
+            withCredentials: true,
+          },
+        );
+        setChild(data.data.response);
       } catch (err) {
         console.log(err);
       }
     }
+
+    getMyInfo();
     getMyChild();
   }, []);
 
@@ -64,58 +77,100 @@ export const MyPage = ({myPageHandleClose}) => {
     }
   }
   return (
-    <View style={tailwind`h-full items-center justify-center bg-slate-100`}>
-      <View style={tailwind`p-4 w-full max-w-sm`}>
-        <Text style={tailwind`text-4xl font-bold mb-6 text-slate-900`}>
-          마이페이지
-        </Text>
-        {info && (
-          <>
-            <Text style={tailwind`text-2xl font-bold mb-3 text-slate-900`}>
-              메일&emsp;:&emsp;{info.email}
-            </Text>
-            <Text style={tailwind`text-2xl font-bold mb-3 text-slate-900`}>
-              이름&emsp;:&emsp;{info.name}
-            </Text>
-            <Text style={tailwind`text-2xl font-bold mb-3 text-slate-900`}>
-              생년월일&emsp;:&emsp;{info.birth}
-            </Text>
-            <Text style={tailwind`text-2xl font-bold mb-3 text-slate-900`}>
-              연락처&emsp;:&emsp;{info.phoneNumber}
-            </Text>
-            <Text style={tailwind`text-2xl font-bold mb-3 text-slate-900`}>
-              프로필&emsp;:&emsp;{info.profileImage}
-            </Text>
-          </>
-        )}
-        <Pressable
-          onPress={() => myPageHandleClose()}
-          style={tailwind`mt-2.5 h-12 bg-transparent border-2 border-gray-500 rounded-md flex flex-row justify-center items-center px-6`}>
-          <View style={tailwind`flex-1 flex items-center`}>
-            <Text style={tailwind`text-gray-500 text-base font-bold`}>
-              뒤로가기
-            </Text>
+    <View style={tailwind`p-8 h-full bg-slate-50`}>
+      {info && (
+        <>
+          <View style={tailwind`flex-1 items-center justify-center gap-4`}>
+            <Image
+              source={{uri: 'https://source.unsplash.com/random'}}
+              style={tailwind`w-24 h-24 mb-2 rounded-full`}
+              resizeMode="cover"
+            />
+            <View style={tailwind`gap-2 items-center`}>
+              <Text style={tailwind`text-slate-900 text-3xl font-bold`}>
+                {info.name}
+              </Text>
+              <Text style={tailwind`text-slate-900 text-lg`}>{info.email}</Text>
+            </View>
           </View>
-        </Pressable>
-        <Pressable
-          onPress={() => handleLogout()}
-          style={tailwind`mt-3 h-12 bg-slate-950 rounded-md flex flex-row justify-center items-center px-6`}>
-          <View style={tailwind`flex-1 flex items-center`}>
-            <Text style={tailwind`text-white text-base font-bold`}>
-              로그아웃
-            </Text>
+          <View style={tailwind`flex-1 justify-center gap-8`}>
+            <Pressable style={tailwind`flex-row items-center mb-2 gap-2 px-4`}>
+              <FontAwesome5
+                name="birthday-cake"
+                size={20}
+                style={tailwind`text-slate-900 mr-2`}
+              />
+              <Text style={tailwind`text-slate-900 text-lg`}>
+                생년월일 :&emsp;
+                <B>{info.birth}</B>
+              </Text>
+            </Pressable>
+            <Pressable style={tailwind`flex-row items-center mb-2 gap-2 px-4`}>
+              <FontAwesome5
+                name="phone-square"
+                size={20}
+                style={tailwind`text-slate-900 mr-2`}
+              />
+              <Text style={tailwind`text-slate-900 text-lg`}>
+                연락처 :&emsp;<B>{info.phoneNumber}</B>
+              </Text>
+            </Pressable>
+            {child.email ? (
+              <View
+                style={tailwind`p-8 mt-2.5 bg-blue-500 rounded-xl p-4 justify-center shadow-lg`}>
+                <Text style={tailwind`text-white text-xl font-bold mb-4`}>
+                  보호 대상자
+                </Text>
+                <View style={tailwind`flex-row items-center`}>
+                  <View
+                    style={tailwind`w-22 h-22 mr-2 rounded-full bg-indigo-50`}>
+                    <Image
+                      style={tailwind`w-22 h-22 rounded-full`}
+                      source={{uri: 'https://source.unsplash.com/random'}}
+                    />
+                  </View>
+                  <View>
+                    <View
+                      style={tailwind`h-10 w-full bg-white rounded-full items-center justify-center border border-blue-500`}>
+                      <Text style={tailwind`text-base text-blue-500 font-bold`}>
+                        {child.name}
+                      </Text>
+                    </View>
+                    <View>
+                      <Text style={tailwind`text-white text-lg font-bold my-3`}>
+                        {child.email}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            ) : (
+              <View
+                style={tailwind`p-8 mt-2.5 bg-blue-500 rounded-xl p-4 items-center shadow-lg`}>
+                <Text style={tailwind`text-white text-xl font-bold`}>
+                  등록된 보호 대상자가 없습니다.
+                </Text>
+              </View>
+            )}
           </View>
-        </Pressable>
-        <Pressable
-          onPress={() => console.log(child)}
-          style={tailwind`mt-3 h-12 bg-slate-950 rounded-md flex flex-row justify-center items-center px-6`}>
-          <View style={tailwind`flex-1 flex items-center`}>
-            <Text style={tailwind`text-white text-base font-bold`}>
-              console.log(child)
-            </Text>
-          </View>
-        </Pressable>
-      </View>
+        </>
+      )}
+      <Pressable
+        onPress={() => myPageHandleClose()}
+        style={tailwind`mt-1 h-12 bg-transparent border-2 border-gray-500 rounded-md flex flex-row justify-center items-center px-6`}>
+        <View style={tailwind`flex-1 flex items-center`}>
+          <Text style={tailwind`text-gray-500 text-base font-bold`}>
+            뒤로가기
+          </Text>
+        </View>
+      </Pressable>
+      <Pressable
+        onPress={() => handleLogout()}
+        style={tailwind`mt-3 h-12 bg-slate-950 rounded-md flex flex-row justify-center items-center px-6`}>
+        <View style={tailwind`flex-1 flex items-center`}>
+          <Text style={tailwind`text-white text-base font-bold`}>로그아웃</Text>
+        </View>
+      </Pressable>
     </View>
   );
 };

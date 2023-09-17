@@ -16,7 +16,7 @@ export const Enroll = ({enrollHandleClose}) => {
       const userEmail = await AsyncStorage.getItem('email');
       console.log(userEmail, childEmail);
       const {data} = await axios.post(
-        `${BASE_URL}/api/v1/child`,
+        `${BASE_URL}/api/v1/child/register`,
         {
           userEmail: String(userEmail),
           childEmail: String(childEmail),
