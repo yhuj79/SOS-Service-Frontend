@@ -1,12 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {Platform, PermissionsAndroid} from 'react-native';
-import type {Node} from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Platform,
+  PermissionsAndroid,
+  Text,
+  Pressable,
+  StyleSheet,
+} from 'react-native';
+import {View} from 'react-native';
+import {Map} from '../components/Map';
 import Geolocation from 'react-native-geolocation-service';
-import MapView, {Marker} from 'react-native-maps';
 
 // 내위치 페이지
-export const MyLocation: () => Node = () => {
+export const MyLocation = () => {
   useEffect(() => {
     // iOS, Android에 대한 권한 요청 처리
     if (Platform.OS === 'ios') {
@@ -46,60 +51,58 @@ export const MyLocation: () => Node = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* 위도, 경도 수치 임시 표기 */}
-      {currentLocation ? (
-        <View style={styles.div_location}>
-          <Text style={styles.text}>rnClient</Text>
-          <Text style={styles.text}>{currentLocation.latitude}</Text>
-          <Text style={styles.text}>{currentLocation.longitude}</Text>
-        </View>
-      ) : (
-        <View>
-          <Text style={styles.text}>Location Error</Text>
-        </View>
-      )}
-      {/* currentLocation에 값이 존재하면 react-native-maps에 위도, 경도를 전달 */}
-      {currentLocation ? (
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude: currentLocation.latitude,
-            longitude: currentLocation.longitude,
-            latitudeDelta: 0.00522,
-            longitudeDelta: 0.00021,
-          }}>
-          <Marker
-            coordinate={{
-              latitude: currentLocation.latitude,
-              longitude: currentLocation.longitude,
-            }}
-            title="My Location"
-          />
-        </MapView>
-      ) : (
-        <Text>Loading...</Text>
-      )}
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Pressable style={styles.button_one}>
+        <Text style={styles.text}>경로 녹화 시작</Text>
+      </Pressable>
+      <Pressable style={styles.button_two}>
+        <Text style={styles.text}>경로 조회</Text>
+      </Pressable>
+      <Pressable style={styles.button_three}>
+        <Text style={styles.text}>CCTV 표시</Text>
+      </Pressable>
+      <Map currentLocation={currentLocation} />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: 'relative',
   },
-  div_location: {
-    paddingTop: 30,
-    paddingBottom: 30,
+  button_one: {
+    position: 'absolute',
+    zIndex: 10,
+    backgroundColor: '#FFA114',
+    borderRadius: 30,
+    padding: 10,
+    margin: 15,
+  },
+  button_two: {
+    position: 'absolute',
+    zIndex: 10,
+    top: 50,
+    backgroundColor: '#27C50E',
+    borderRadius: 30,
+    padding: 10,
+    margin: 15,
+  },
+  button_three: {
+    position: 'absolute',
+    zIndex: 10,
+    bottom: '1%',
+    right: '2%',
+    backgroundColor: '#60C29F',
+    borderRadius: 30,
+    padding: 10,
+    margin: 15,
   },
   text: {
-    color: '#000',
-    fontWeight: '700',
-    fontSize: 20,
-    textAlign: 'center',
-    marginBottom: 5,
-  },
-  map: {
-    flex: 1,
+    color: '#FFF',
+    fontWeight: 'bold',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: {width: 0, height: 0},
+    textShadowRadius: 10,
   },
 });

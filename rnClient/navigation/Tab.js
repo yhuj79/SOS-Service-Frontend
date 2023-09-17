@@ -107,6 +107,7 @@ export default TabNavigation;
 const styles = StyleSheet.create({
   header_title: {
     fontSize: 22,
+    fontWeight: 'bold',
     color: '#000',
   },
   header_button: {
