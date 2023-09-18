@@ -1,3 +1,4 @@
+import {BASE_URL} from '@env';
 import React, {useEffect, useState} from 'react';
 import {
   Platform,
@@ -9,6 +10,10 @@ import {
 import {View} from 'react-native';
 import {Map} from '../components/Map';
 import Geolocation from 'react-native-geolocation-service';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Stomp} from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+import axios from 'axios';
 
 // 내위치 페이지
 export const MyLocation = () => {
@@ -25,6 +30,31 @@ export const MyLocation = () => {
 
   const [currentLocation, setCurrentLocation] = useState(null);
 
+  const client = Stomp.over(new SockJS(`${BASE_URL}/ws`));
+  client.connect({}, () => {});
+  const [roomId, setRoomId] = useState(null);
+
+  useEffect(() => {
+    // 모니터링 ID 조회
+    async function getRoomId() {
+      try {
+        const email = await AsyncStorage.getItem('email');
+        const data = await axios.post(
+          `${BASE_URL}/api/v1/rooms`,
+          {email: email},
+          {
+            withCredentials: true,
+          },
+        );
+        console.log(data.data.response);
+        setRoomId(data.data.response);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getRoomId();
+  }, []);
+
   useEffect(() => {
     // 위치 업데이트 설정
     const watchId = Geolocation.watchPosition(
@@ -32,6 +62,16 @@ export const MyLocation = () => {
         const {latitude, longitude} = position.coords;
         // currentLocation에 위도, 경도 저장
         setCurrentLocation({latitude, longitude});
+        if (roomId) {
+          client.send(
+            '/pub/monitoring/message',
+            {},
+            JSON.stringify({
+              roomId: roomId,
+              position: {latitude: latitude, longitude: longitude},
+            }),
+          );
+        }
       },
       error => {
         console.log(error);
@@ -48,6 +88,7 @@ export const MyLocation = () => {
     return () => {
       Geolocation.clearWatch(watchId);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

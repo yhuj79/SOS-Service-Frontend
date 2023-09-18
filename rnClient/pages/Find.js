@@ -110,7 +110,7 @@ export const Find = () => {
       </View>
     );
   } else {
-    return <FindMap mapPageHandleClose={mapPageHandleClose} />;
+    return <FindMap child={child} mapPageHandleClose={mapPageHandleClose} />;
   }
 };
 
