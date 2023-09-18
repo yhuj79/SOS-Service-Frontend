@@ -6,6 +6,7 @@ import RNRestart from 'react-native-restart';
 import {View, Text, Image, Pressable, Alert} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import tailwind from 'twrnc';
+import {ChildCard} from './ChildCard';
 
 // eslint-disable-next-line react-native/no-inline-styles
 const B = props => <Text style={{fontWeight: 'bold'}}>{props.children}</Text>;
@@ -116,34 +117,7 @@ export const MyPage = ({myPageHandleClose}) => {
               </Text>
             </Pressable>
             {child.email ? (
-              <View
-                style={tailwind`p-8 mt-2.5 bg-blue-500 rounded-xl p-4 justify-center shadow-lg`}>
-                <Text style={tailwind`text-white text-xl font-bold mb-4`}>
-                  보호 대상자
-                </Text>
-                <View style={tailwind`flex-row items-center`}>
-                  <View
-                    style={tailwind`w-22 h-22 mr-2 rounded-full bg-indigo-50`}>
-                    <Image
-                      style={tailwind`w-22 h-22 rounded-full`}
-                      source={{uri: 'https://source.unsplash.com/random'}}
-                    />
-                  </View>
-                  <View>
-                    <View
-                      style={tailwind`h-10 w-full bg-white rounded-full items-center justify-center border border-blue-500`}>
-                      <Text style={tailwind`text-base text-blue-500 font-bold`}>
-                        {child.name}
-                      </Text>
-                    </View>
-                    <View>
-                      <Text style={tailwind`text-white text-lg font-bold my-3`}>
-                        {child.email}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
+              <ChildCard child={child} />
             ) : (
               <View
                 style={tailwind`p-8 mt-2.5 bg-blue-500 rounded-xl p-4 items-center shadow-lg`}>
