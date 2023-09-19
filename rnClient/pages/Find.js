@@ -8,7 +8,7 @@ import {Backdrop} from 'react-native-backdrop';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Enroll} from '../components/Enroll';
 import {ChildCard} from '../components/ChildCard';
-import {FindMap} from './FindMap';
+import {ChildLocation} from './ChildLocation';
 
 // 찾기 페이지
 export const Find = () => {
@@ -110,7 +110,9 @@ export const Find = () => {
       </View>
     );
   } else {
-    return <FindMap child={child} mapPageHandleClose={mapPageHandleClose} />;
+    return (
+      <ChildLocation child={child} mapPageHandleClose={mapPageHandleClose} />
+    );
   }
 };
 
