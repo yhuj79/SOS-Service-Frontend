@@ -1,13 +1,16 @@
-import {BASE_URL} from '@env';
-import axios from 'axios';
 import React, {useEffect, useState} from 'react';
+import {BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import RNRestart from 'react-native-restart';
-import {View, Text, Image, Pressable, Alert} from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import tailwind from 'twrnc';
+
 import {ChildCard} from './ChildCard';
 
+import {View, Text, Image, Pressable, Alert} from 'react-native';
+import tailwind from 'twrnc';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
+// 굵은 텍스트 컴포넌트
 // eslint-disable-next-line react-native/no-inline-styles
 const B = props => <Text style={{fontWeight: 'bold'}}>{props.children}</Text>;
 
@@ -17,8 +20,10 @@ export const MyPage = ({myPageHandleClose}) => {
   const [child, setChild] = useState({});
 
   useEffect(() => {
+    // 회원 정보 조회 함수
     async function getMyInfo() {
       try {
+        // Async Storage의 본인 이메일 검증하여 조회
         const email = await AsyncStorage.getItem('email');
         const data = await axios.post(
           `${BASE_URL}/api/v1/auth/me`,
@@ -33,8 +38,10 @@ export const MyPage = ({myPageHandleClose}) => {
       }
     }
 
+    // 보호 대상자 조회 함수
     async function getMyChild() {
       try {
+        // Async Storage의 본인 이메일 검증하여 조회
         const email = await AsyncStorage.getItem('email');
         const data = await axios.post(
           `${BASE_URL}/api/v1/child`,
@@ -53,6 +60,7 @@ export const MyPage = ({myPageHandleClose}) => {
     getMyChild();
   }, []);
 
+  // 로그아웃 Alert
   function handleLogout() {
     Alert.alert(
       '로그아웃 하시겠습니까?',
@@ -68,10 +76,13 @@ export const MyPage = ({myPageHandleClose}) => {
     );
   }
 
+  // 로그아웃 처리 함수
   async function removeAuth() {
     try {
+      // Async Storage 이메일 제거
       await AsyncStorage.removeItem('email');
       console.log('Removed Success');
+      // React Native 재시작
       RNRestart.restart();
     } catch (err) {
       console.log(err.message);
@@ -83,7 +94,7 @@ export const MyPage = ({myPageHandleClose}) => {
         <>
           <View style={tailwind`flex-1 items-center justify-center gap-4`}>
             <Image
-              source={{uri: 'https://source.unsplash.com/random'}}
+              source={require('../assets/profileDefault.jpg')}
               style={tailwind`w-24 h-24 mb-2 rounded-full`}
               resizeMode="cover"
             />

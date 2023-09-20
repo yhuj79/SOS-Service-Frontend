@@ -1,19 +1,21 @@
-import {BASE_URL} from '@env';
 import React, {useEffect, useState} from 'react';
+import {BASE_URL} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import Geolocation from 'react-native-geolocation-service';
+import {Stomp} from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+
+import {Map} from '../components/Map';
+
 import {
+  View,
   Platform,
   PermissionsAndroid,
   Text,
   Pressable,
   StyleSheet,
 } from 'react-native';
-import {View} from 'react-native';
-import {Map} from '../components/Map';
-import Geolocation from 'react-native-geolocation-service';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Stomp} from '@stomp/stompjs';
-import SockJS from 'sockjs-client';
-import axios from 'axios';
 
 // 내위치 페이지
 export const MyLocation = () => {

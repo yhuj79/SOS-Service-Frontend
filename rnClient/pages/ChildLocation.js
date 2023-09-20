@@ -1,11 +1,14 @@
-import {BASE_URL} from '@env';
 import React, {useEffect, useState} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {Map} from '../components/Map';
+import {BASE_URL} from '@env';
 import axios from 'axios';
 import {Stomp} from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
+import {Map} from '../components/Map';
+
+import {Pressable, StyleSheet, Text, View} from 'react-native';
+
+// 보호 대상자 위치 조회 컴포넌트
 export const ChildLocation = ({child, mapPageHandleClose}) => {
   const currentLocation = {latitude: 37.575843, longitude: 126.97738};
   const client = Stomp.over(new SockJS(`${BASE_URL}/ws`));

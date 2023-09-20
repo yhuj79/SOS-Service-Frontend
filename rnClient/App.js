@@ -8,6 +8,7 @@ const App = () => {
   const [auth, setAuth] = useState(false);
 
   useEffect(() => {
+    // Async Storage 조회하여 이메일이 없으면 Access 창 출력
     async function getAuth() {
       try {
         const value = await AsyncStorage.getItem('email');

@@ -1,9 +1,10 @@
-import React from 'react';
-import {useState} from 'react';
-import {Backdrop} from 'react-native-backdrop';
-import {StyleSheet, Pressable, View, Text, Image} from 'react-native';
+import React, {useState} from 'react';
+
 import {Login} from '../components/Login';
 import {Register} from '../components/Register';
+
+import {Backdrop} from 'react-native-backdrop';
+import {StyleSheet, Pressable, View, Text, Image} from 'react-native';
 
 // 로그인이 되어 있지 않을 경우 보여지는 페이지
 export const Access = () => {

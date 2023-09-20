@@ -1,10 +1,11 @@
-import {BASE_URL} from '@env';
-import axios from 'axios';
 import React, {useState} from 'react';
+import {BASE_URL} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import RNRestart from 'react-native-restart';
+
 import {View, Text, TextInput, Pressable, Alert} from 'react-native';
 import tailwind from 'twrnc';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import RNRestart from 'react-native-restart';
 
 // 로그인 컴포넌트
 export const Login = ({registerHandleOpen, loginHandleClose}) => {
@@ -14,6 +15,7 @@ export const Login = ({registerHandleOpen, loginHandleClose}) => {
   // 로그인 처리 함수
   async function handleLogin() {
     try {
+      // 이메일, 비밀번호 검증
       const data = await axios.post(
         `${BASE_URL}/api/v1/auth/login`,
         {
@@ -24,9 +26,11 @@ export const Login = ({registerHandleOpen, loginHandleClose}) => {
           withCredentials: true,
         },
       );
+      // 검증 성공한 이메일은 Async Storage에 저장
       const parseValue = JSON.parse(data.config.data);
       AsyncStorage.setItem('email', parseValue.email);
       console.log('AsyncStorage Success');
+      // React Native 재시작
       RNRestart.restart();
     } catch (error) {
       Alert.alert('이메일 또는 비밀번호를 잘못 입력하셨습니다.');

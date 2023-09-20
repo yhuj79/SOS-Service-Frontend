@@ -1,14 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
-import {BASE_URL} from '@env';
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import {BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {StyleSheet, View, Pressable, Text} from 'react-native';
-import {Backdrop} from 'react-native-backdrop';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import axios from 'axios';
+
 import {Enroll} from '../components/Enroll';
 import {ChildCard} from '../components/ChildCard';
 import {ChildLocation} from './ChildLocation';
+
+import {StyleSheet, View, Pressable, Text} from 'react-native';
+import {Backdrop} from 'react-native-backdrop';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 // 찾기 페이지
 export const Find = () => {
@@ -17,8 +19,10 @@ export const Find = () => {
   const [child, setChild] = useState({});
 
   useEffect(() => {
+    // 보호 대상자 조회 함수
     async function getMyChild() {
       try {
+        // Async Storage의 본인 이메일 검증하여 조회
         const email = await AsyncStorage.getItem('email');
         const data = await axios.post(
           `${BASE_URL}/api/v1/child`,
@@ -52,9 +56,7 @@ export const Find = () => {
     setMapPage(false);
   };
 
-  // 로그인 인증이 완료되었을 경우 본래 Find 페이지, 아닌 경우 Access 페이지 출력
-  // 현재 인증 로직이 없어 auth를 임시적으로 지정해 놓았음
-
+  // 조건부로 맵 ON/OFF
   if (!mapPage) {
     return (
       <View style={{flex: 1}}>

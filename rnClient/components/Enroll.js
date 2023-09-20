@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
+import React, {useState} from 'react';
 import {BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import React, {useState} from 'react';
+
 import {View, Text, TextInput, Pressable, Alert} from 'react-native';
 import tailwind from 'twrnc';
 
@@ -11,10 +12,11 @@ export const Enroll = ({enrollHandleClose}) => {
   const [childEmail, setChildEmail] = useState('');
   const [authKey, setAuthKey] = useState('');
 
+  // 보호 대상자 등록 함수
   async function handleEnroll() {
     try {
+      // Async Storage의 본인 이메일, 입력한 이메일을 각각 전송하여 등록
       const userEmail = await AsyncStorage.getItem('email');
-      console.log(userEmail, childEmail);
       const {data} = await axios.post(
         `${BASE_URL}/api/v1/child/register`,
         {
@@ -28,7 +30,6 @@ export const Enroll = ({enrollHandleClose}) => {
       console.log(data);
       enrollHandleClose();
     } catch (error) {
-      // console.log(error);
       Alert.alert('대상자 정보를 잘못 입력하셨습니다.');
     }
   }
@@ -47,11 +48,13 @@ export const Enroll = ({enrollHandleClose}) => {
           placeholder="E-MAIL"
           onChangeText={e => setChildEmail(e)}
         />
+        {/* 인증번호 기능은 UI만 구현되어 있음 */}
         <Text style={tailwind`text-4 mb-1 text-slate-900`}>인증번호</Text>
         <TextInput
           style={tailwind`w-full bg-white text-black border border-slate-200 rounded-md h-12 px-4`}
           placeholderTextColor="#BDBDBD"
           placeholder="AUTH KEY"
+          secureTextEntry={true}
           onChangeText={e => setAuthKey(e)}
         />
         <View style={tailwind`flex flex-row justify-between items-center my-5`}>
