@@ -30,6 +30,10 @@ SOS Service Frontend Repository
   * [Notion](https://www.notion.so/SOS-92e92bfdf8304aa293dfc5e83a842fff)
   * [Figma](https://www.figma.com/file/rY421zMLQgfa3WUwwGreXb/%ED%94%84%EB%A1%9C%EB%B3%B4%EB%85%B8-%EC%95%88%EC%8B%AC%EA%B7%80%EA%B0%80?type=design&node-id=0-1&mode=design&t=iiF47qpuDkrGPI5f-0)
 
+## :open_file_folder: 백엔드 개요
+
+[GitHub Repository](https://github.com/LEE-sh1673/SOS-Service-Backend)
+
 ## :open_file_folder: 프론트엔드 개요
 
 ## Built With
