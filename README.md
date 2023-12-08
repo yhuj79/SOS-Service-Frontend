@@ -6,7 +6,7 @@ SOS Service Frontend Repository
 
 <!-- [:ballot_box_with_check: 전체 프로젝트 Repository]() -->
 
-[:ballot_box_with_check: 시연 영상](https://www.youtube.com/watch?v=WESLORvzCIE&list=LL&index=1)
+[:ballot_box_with_check: 시연 영상](https://www.youtube.com/watch?v=FUO20uc8-Eg&t=9s)
 
 ## :file_folder: 프로젝트 개요
 
