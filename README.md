@@ -1,3 +1,5 @@
+# 어린이/장애인 안심귀가 모니터링 및 SOS 서비스
+
 <img src="https://raw.githubusercontent.com/yhuj79/SOS-Service-Frontend/main/assets/thumbnail.png" width="600">
 
 ### 2023년 프로보노 ICT멘토링 프로젝트
